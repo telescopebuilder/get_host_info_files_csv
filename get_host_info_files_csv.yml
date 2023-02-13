@@ -16,10 +16,6 @@
         src: /tmp/awx-host-info/{{ inventory_hostname }}_inventory_information.csv
         dest: /tmp/awx-host-info/
 
-    - name: Remove previous version of the combined file
-      delegate_to: andy-awxnode-test
-      shell: "test -e /tmp/combined-host-info.csv && rm /tmp/combined-host-info.csv"
-
     - name: Set first_inventory_file
       set_fact:
         first_inventory_file: "{{ first_inventory_file | default(inventory_hostname) }}"
