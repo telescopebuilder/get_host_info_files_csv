@@ -18,9 +18,9 @@
 
     - name: Create the combined file if it does not exist
       delegate_to: andy-awxnode-test
-      shell: "test -e /tmp/combined-host-info.csv || head -1 /tmp/awx-host-info/{{ inventory_host_vars['first_inventory_file'] }} > /tmp/combined-host-info.csv"
+      shell: "test -e /tmp/combined-host-info.csv || head -1 /tmp/awx-host-info/{{ hostvars[first_inventory_file].inventory_hostname }} > /tmp/combined-host-info.csv"
       vars:
-        first_inventory_file: "{{ (inventory_host_vars['first_inventory_file'] is defined) ? inventory_host_vars['first_inventory_file'] : inventory_hostname }}"
+        first_inventory_file: "{{ (first_inventory_file is defined) ? first_inventory_file : inventory_hostname }}"
 
     - name: Concatenate the files into one file
       delegate_to: andy-awxnode-test
