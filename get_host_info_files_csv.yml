@@ -16,14 +16,14 @@
         src: /tmp/awx-host-info/{{ inventory_hostname }}_inventory_information.csv
         dest: /tmp/awx-host-info/
 
-    - name: Set first_inventory_file
+    - name: Set first_inventory_file to take first header line from
       set_fact:
         first_inventory_file: "{{ first_inventory_file | default(inventory_hostname) }}"
 
-    - name: Create the combined file
+    - name: Create the combined file, taking the first line only from the first_inventory_file
       delegate_to: andy-awxnode-test
       shell: "head -1 /tmp/awx-host-info/{{ first_inventory_file }}_inventory_information.csv > /tmp/combined-host-info/current_host_info.csv"
 
-    - name: Concatenate the files into one file
+    - name: Concatenate the files into one file, leaving out header line
       delegate_to: andy-awxnode-test
       shell: "tail -n +2 /tmp/awx-host-info/{{ inventory_hostname }}_inventory_information.csv >> /tmp/combined-host-info/current_host_info.csv"
