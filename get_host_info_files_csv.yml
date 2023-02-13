@@ -22,8 +22,8 @@
 
     - name: Create the combined file
       delegate_to: andy-awxnode-test
-      shell: "head -1 /tmp/awx-host-info/{{ first_inventory_file }}_inventory_information.csv > /tmp/combined-host-info.csv"
+      shell: "head -1 /tmp/awx-host-info/{{ first_inventory_file }}_inventory_information.csv > /tmp/combined-host-info/current_host_info.csv"
 
     - name: Concatenate the files into one file
       delegate_to: andy-awxnode-test
-      shell: "tail -n +2 /tmp/awx-host-info/{{ inventory_hostname }}_inventory_information.csv >> /tmp/combined-host-info.csv"
+      shell: "tail -n +2 /tmp/awx-host-info/{{ inventory_hostname }}_inventory_information.csv >> /tmp/combined-host-info/current_host_info.csv"
